@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "533459259130",
+    "project_id": "walaplus-familymgmt",
+    "storage_bucket": "walaplus-familymgmt.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:533459259130:android:5c076a0f6468afcb0ac343",
+        "android_client_info": {
+          "package_name": "com.example.walaplus_family_mgmt"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "533459259130-kdj2bqbfn989bhjshdu2jq9leaakio3i.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.walaplus_family_mgmt",
+            "certificate_hash": "ccce76aaa086b369530845e02a3da86e420d0957"
+          }
+        },
+        {
+          "client_id": "533459259130-b2oo6tbmipcod8ikrnu6l7tq8c018etm.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDc0YJPdTEgwlGHpfbElMieWIGGbf6bnnU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "533459259130-b2oo6tbmipcod8ikrnu6l7tq8c018etm.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

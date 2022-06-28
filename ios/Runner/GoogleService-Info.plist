@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>533459259130-eo7s840e6m0mu1b3sp2nc3f0p63sd9ck.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.533459259130-eo7s840e6m0mu1b3sp2nc3f0p63sd9ck</string>
+	<key>ANDROID_CLIENT_ID</key>
+	<string>533459259130-kdj2bqbfn989bhjshdu2jq9leaakio3i.apps.googleusercontent.com</string>
+	<key>API_KEY</key>
+	<string>AIzaSyAfx-hgenlKD32HRPgyj3z9wAZQFyT4EDo</string>
+	<key>GCM_SENDER_ID</key>
+	<string>533459259130</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.example.walaplusFamilyMgmt</string>
+	<key>PROJECT_ID</key>
+	<string>walaplus-familymgmt</string>
+	<key>STORAGE_BUCKET</key>
+	<string>walaplus-familymgmt.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:533459259130:ios:9fce566e0986eb340ac343</string>
+</dict>
+</plist>
