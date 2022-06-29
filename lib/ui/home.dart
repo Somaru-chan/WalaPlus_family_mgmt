@@ -1,7 +1,6 @@
 // ignore_for_file: prefer_const_constructors
 
 
-import 'dart:ffi';
 import 'dart:math';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -29,18 +28,22 @@ class _HomeScreenState extends State<HomeScreen> {
     FirebaseFirestore.instance.collection('users');
   final CollectionReference _invites = 
     FirebaseFirestore.instance.collection('invites');
-  final CollectionReference _invited = 
-    FirebaseFirestore.instance.collection('invited');
 
   final TextEditingController _pointsController = TextEditingController();
   final TextEditingController _phoneController = TextEditingController();
 
   //get number of invites
-  // int getInvites() {
-    // final int invitesNo =  _invites.snapshots().length.toString(); 
-
-    // return invitesNo;
-  // }
+  int getInvites(){
+    // final QuerySnapshot qSnap = 
+    int invitesNo = 0;
+          
+    _invites.get().then((value) {
+      print(value.docs.length);
+      invitesNo = value.docs.length;
+    });
+    // final int invitesNo = qSnap.docs.length;
+    return invitesNo;
+  }
 
   //add points method
   Future<void> _addPoints([DocumentSnapshot? documentSnapshot]) async {
@@ -276,7 +279,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                     backgroundColor: kSecondaryOrange,
                   ),
-                  child: const Text( 'إرسال', style: TextStyle(
+                  child: const Text( 'حذف الآن', style: TextStyle(
                     color: Colors.white,
                     fontWeight: FontWeight.bold,
                     // fontSize:
@@ -391,20 +394,20 @@ class _HomeScreenState extends State<HomeScreen> {
                   onPressed: () async {
                     if (_phoneController.text != null) {
 
-                      //Declaring variables for users' info
+                      // //Declaring variables for users' info
                       final String inputPhone = _phoneController.text.trim();
                       String invitedPhone;
                       String invitedName;
                       String invitedUID;
                       num invitedPoints;
 
-                      //inviter info
-                      String inviterUID;
-                      String inviterName; 
-                      String inviterPhone;
-                      num inviterPoints;
-                      User? user = FirebaseAuth.instance.currentUser;
-                      String currrentUserUID = user!.uid;
+                      // //inviter info
+                      // String inviterUID;
+                      // String inviterName; 
+                      // String inviterPhone;
+                      // num inviterPoints;
+                      // User? user = FirebaseAuth.instance.currentUser;
+                      // String currrentUserUID = user!.uid;
 
                       final querySnapshot = await _users
                       .where('phone', isEqualTo: inputPhone)
@@ -413,94 +416,49 @@ class _HomeScreenState extends State<HomeScreen> {
                       final Map<String, dynamic> userData = querySnapshot.docs.first.data() as Map<String, dynamic>;
 
 
-                      final querySnapshotCurrent = await _users
-                      .where('uid', isEqualTo: currrentUserUID)
-                      .get();
+                      // final querySnapshotCurrent = await _users
+                      // .where('uid', isEqualTo: currrentUserUID)
+                      // .get();
 
-                      final Map<String, dynamic> currentUserData = querySnapshotCurrent.docs.first.data() as Map<String, dynamic>;
+                      // final Map<String, dynamic> currentUserData = querySnapshotCurrent.docs.first.data() as Map<String, dynamic>;
 
-                      print(userData['firstName']);
+                      // print(userData['firstName']);
 
                       //invited info
                       invitedPhone = userData['phone'];
-                      invitedName = userData['firstName'] + userData['lastName'];
+                      invitedName = userData['firstName'] + '  ' + userData['lastName'];
                       invitedUID = userData['uid'];
                       invitedPoints = userData['points'];
 
-                      print('phone number is: $invitedPhone and name is $invitedName');
+                      // print('phone number is: $invitedPhone and name is $invitedName');
 
-                      //inviter info
-                      inviterPhone = currentUserData['phone'];
-                      inviterName = currentUserData['firstName'] + currentUserData['lastName'];
-                      inviterUID = currentUserData['uid'];
-                      inviterPoints = currentUserData['points'];
+                      // //inviter info
+                      // inviterPhone = currentUserData['phone'];
+                      // inviterName = currentUserData['firstName'] + currentUserData['lastName'];
+                      // inviterUID = currentUserData['uid'];
+                      // inviterPoints = currentUserData['points'];
 
-                      print('inviter phone is: $inviterPhone and inviter name: $inviterName');
-
-
-                      if (invitedPhone != null ) {
-                        //add invitee to the outgoing invited collection of inviter
-                        await _invited.doc(currrentUserUID)
-                        .set({'name': invitedName, 'phone': invitedPhone, 'points': invitedPoints})
-                        .then((_) => print('Added to invited list'))
-                        .catchError((error) => print('Add failed: $error'));
-
-                        // add inviter to the incoming invites collection of invitee
-                        await _invites.doc(invitedUID)
-                        .set({'name': inviterName, 'phone': inviterPhone, 'points': inviterPoints})
-                        .then((_) => print('Added to invites list'))
-                        .catchError((error) => print('Add failed: $error'));
-                      }
-
-                      // for (var doc in querySnapshot.docs) {
-
-                      //   //invited info
-                      //   invitedName = doc.get('firstName') + doc.get('lastName');
-                      //   invitedPhone = doc.get('phone');
-                      //   invitedPoints = doc.get('points');
-                      //   invitedUID = doc.get('uid');
-
-                      //   print('phone number is: $invitedPhone and name is $invitedName');
-                      // }
-
-                      // DocumentSnapshot snapshot = FirebaseFirestore.instance.collection('users').doc(user?.uid).get() as DocumentSnapshot;
-
-
-                      // for (var doc in querySnapshotCurrent.docs) {
-
-                      //   //inviter info
-                      //   inviterName = doc.get('firstName') + doc.get('lastName');
-                      //   inviterPhone = doc.get('phone');
-                      //   inviterPoints = doc.get('points');
-                      //   inviterUID = doc.get('uid');
-
-                      //   print('inviter phone: $inviterPhone, name: $inviterName, uid: ' + currrentUserUID);
-
-                      // }
-
-
-
-
-
-
-
-
+                      // print('inviter phone is: $inviterPhone and inviter name: $inviterName');
 
 
                       // if (invitedPhone != null ) {
                       //   //add invitee to the outgoing invited collection of inviter
-                      //   await _invited.doc(user?.uid)
-                      //   .set({'name': invitedName, 'phone': invitedPhone, 'points': invitedPoints})
+                      //   await _invited
+                      //   .add({'name': invitedName, 'phone': invitedPhone, 'points': invitedPoints})
                       //   .then((_) => print('Added to invited list'))
                       //   .catchError((error) => print('Add failed: $error'));
 
                       //   // add inviter to the incoming invites collection of invitee
-                      //   await _invites.doc(invitedUID)
-                      //   .set({'name': inviterName, 'phone': inviterPhone, 'points': inviterPoints})
+                      //   await _invites
+                      //   .add({'name': inviterName, 'phone': inviterPhone, 'points': inviterPoints})
                       //   .then((_) => print('Added to invites list'))
                       //   .catchError((error) => print('Add failed: $error'));
                       // }
-                            
+
+                      await _members.add({'name': invitedName, 'phone': invitedPhone, 'points': invitedPoints})
+                      .then((_) => print('Added to members list'))
+                      .catchError((error) => print('Add failed: $error'));
+
                       _phoneController.text = '';
                         Navigator.of(context).pop();
                     } else {
@@ -530,128 +488,128 @@ class _HomeScreenState extends State<HomeScreen> {
     double scWidth = size.width;
     double scHeight = size.height;
 
-    // int invitesNo = getInvites();
+    final invitesNo = getInvites();
+    // final invitesNo = _invites.snapshots().length.toString();
 
     return Scaffold(
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: [
-          SizedBox(height: scHeight*0.07,),
-          Container(
-            width: double.infinity,
-            decoration: BoxDecoration(
-              color: Colors.grey.shade100,
-              borderRadius: const BorderRadius.only(
-                topLeft: Radius.circular(30),
-                topRight: Radius.circular(30) 
-              ), 
-            ),
-            child: Column(
-              // ignore: prefer_const_literals_to_create_immutables
-              children: [
-                SizedBox(height: 20,),
-            
-                //My Family title
-                Text('عائلتي', style: TextStyle(
-                  color: Colors.black87,
-                  fontSize: 22,
-                  fontWeight: FontWeight.w600
-                ),),
-            
-                StreamBuilder(
-                  stream: _members.snapshots(),
-                  builder: (context, AsyncSnapshot<QuerySnapshot> streamSnapshot)  { 
-                    //TODO: try != null instead of hasData
-                    if (streamSnapshot.hasData) {
-                      return ListView.builder(
-                        shrinkWrap: true,
-                        itemCount: streamSnapshot.data!.docs.length,
-                        itemBuilder: ((context, index) {
-                          final DocumentSnapshot documentSnapshot = 
-                            streamSnapshot.data!.docs[index];
-                          final String name = documentSnapshot['name'];
-                          final String phone = documentSnapshot['phone'];
-                          final num points = documentSnapshot['points'];
-                          final num invites = documentSnapshot['invites'];
-                
-                          return memberCard(
-                            context, 
-                            name, 
-                            points,
-                            (() => _addPoints(documentSnapshot)),
-                            (() => _deleteMember(documentSnapshot))
-                          );
-                        }),
+      resizeToAvoidBottomInset: false,
+      body: SingleChildScrollView(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            SizedBox(height: scHeight*0.07,),
+            Container(
+              width: double.infinity,
+              height: scHeight,
+              decoration: BoxDecoration(
+                color: Colors.grey.shade100,
+                borderRadius: const BorderRadius.only(
+                  topLeft: Radius.circular(30),
+                  topRight: Radius.circular(30) 
+                ), 
+              ),
+              child: Column(
+                // ignore: prefer_const_literals_to_create_immutables
+                children: [
+                  SizedBox(height: 20,),
+              
+                  //My Family title
+                  Text('عائلتي', style: TextStyle(
+                    color: Colors.black87,
+                    fontSize: 22,
+                    fontWeight: FontWeight.w600
+                  ),),
+
+                  StreamBuilder(
+                    stream: _members.snapshots(),
+                    builder: (context, AsyncSnapshot<QuerySnapshot> streamSnapshot)  { 
+                      bool? isEmpty = streamSnapshot.data?.docs.isNotEmpty;
+                      if (isEmpty ?? false) {
+                        return ListView.builder(
+                          shrinkWrap: true,
+                          itemCount: streamSnapshot.data!.docs.length,
+                          itemBuilder: ((context, index) {
+                            final DocumentSnapshot documentSnapshot = 
+                              streamSnapshot.data!.docs[index];
+                            final String name = documentSnapshot['name'];
+                            final num points = documentSnapshot['points'];
+
+                            getInvites();
+                  
+                            return memberCard(
+                              context, 
+                              name, 
+                              points,
+                              (() => _addPoints(documentSnapshot)),
+                              (() => _deleteMember(documentSnapshot))
+                            );
+                          }),
+                        );
+                      }
+                      print(streamSnapshot.hasData);
+                  
+                      //in case no members were added
+                      return Center(
+                        child: Container(
+                          margin: EdgeInsets.only(top: scHeight*0.08),
+                          height: 30,
+                          child: Text('لم تقم بإضافة أي فرد عائلة', 
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                              color: Colors.black38,
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold
+                            ),
+                          ),
+                        ),
                       );
                     }
-                    print(streamSnapshot.hasData);
-                
-                    //in case no members were added
-                    return Container(
-                      margin: EdgeInsets.only(top: scHeight*0.08),
-                      height: 30,
-                      child: Text('لم تقم بإضافة أي فرد عائلة', 
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                          color: Colors.black38,
-                          fontSize: 16
-                        ),
-                      ),
-                    );
-                  }
-                ),
-
-                // Container(
-                //       margin: EdgeInsets.only(top: scHeight*0.08),
-                //       height: 30,
-                //       child: Text('لم تقم بإضافة أي فرد عائلة', 
-                //       textAlign: TextAlign.center,
-                //       style: TextStyle(
-                //           color: Colors.black38,
-                //           fontSize: 16
-                //         ),
-                //       ),
-                //     ),
-
-                SizedBox(height: scHeight*0.04,),
-
-                //add member of family
-                Center(
-                  child: TextButton(
-                    style: TextButton.styleFrom(
-                        shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(20),
-                      ),
-                      fixedSize: Size(
-                        MediaQuery.of(context).size.width*0.4, 
-                        MediaQuery.of(context).size.height*0.055
-                      ),
-                      backgroundColor: kPrimaryGreen,
-                    ),
-                    child: const Text( 'إضافة فرد من العائلة', style: TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
-                      // fontSize:
-                    ),),
-                    onPressed: () {
-                      _addMember();
-                    },
                   ),
-                ),
       
-                SizedBox(height: 10,),
 
 
-                Center(
-                  // child: Text('لديك ($invitesNo) دعوات', style: TextStyle(
-                    // color: Colors.grey[500],
-                  // ),),
-                ),
-            
-              ],
-            ),
-          )
-        ],
+                  SizedBox(height: scHeight*0.04,),
+      
+                  //add member of family
+                  Center(
+                    child: TextButton(
+                      style: TextButton.styleFrom(
+                          shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                        fixedSize: Size(
+                          MediaQuery.of(context).size.width*0.4, 
+                          MediaQuery.of(context).size.height*0.055
+                        ),
+                        backgroundColor: kPrimaryGreen,
+                      ),
+                      child: const Text( 'إضافة فرد من العائلة', style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 16
+                        // fontSize:
+                      ),),
+                      onPressed: () {
+                        _addMember();
+                      },
+                    ),
+                  ),
+        
+                  SizedBox(height: 10,),
+      
+      
+                  Center(
+                    child: Text(' 👍   لديك  (  $invitesNo  ) دعوات', style: TextStyle(
+                      color: Colors.grey[500],
+                      fontSize: 15
+                    ),),
+                  ),
+              
+                ],
+              ),
+            )
+          ],
+        ),
       ),
     );
   }

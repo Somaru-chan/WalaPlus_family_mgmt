@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.walaplus_family_mgmt">
    <application
-        android:label="walaplus_family_mgmt"
+        android:label="WalaPlus Family"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity

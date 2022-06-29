@@ -12,35 +12,33 @@ class TextFieldDesign{
         borderRadius: BorderRadius.circular(20),
         color: Colors.grey.shade100
       ),
-      child: Expanded(
-        child: Directionality(
-          textDirection: TextDirection.rtl,
-          child: TextFormField(
-            enabled: enabled,
-            obscureText: obscTxt,
-            controller: controller,
-            keyboardType: kbType,
-            textInputAction: textInputAction,
-            autovalidateMode: AutovalidateMode.onUserInteraction,
-            validator: validat,
-            style: const TextStyle(
-                color: Colors.black,
-                fontWeight: FontWeight.w600),
-            decoration: InputDecoration(
-              labelText: lbTxt,
-              labelStyle: const TextStyle(
-                  color: Colors.grey,
-                  fontSize: 16,
-                  fontWeight: FontWeight.w400
-              ),
-              contentPadding: const EdgeInsets.only(top: 10, left: 20, right: 20),
-              errorStyle: const TextStyle(
-                fontSize: 12,
-              ),
-              focusColor: Colors.black,
-              border: InputBorder.none,
-              counterText: "",
+      child: Directionality(
+        textDirection: TextDirection.rtl,
+        child: TextFormField(
+          enabled: enabled,
+          obscureText: obscTxt,
+          controller: controller,
+          keyboardType: kbType,
+          textInputAction: textInputAction,
+          autovalidateMode: AutovalidateMode.onUserInteraction,
+          validator: validat,
+          style: const TextStyle(
+              color: Colors.black,
+              fontWeight: FontWeight.w600),
+          decoration: InputDecoration(
+            labelText: lbTxt,
+            labelStyle: const TextStyle(
+                color: Colors.grey,
+                fontSize: 16,
+                fontWeight: FontWeight.w400
             ),
+            contentPadding: const EdgeInsets.only(top: 10, left: 20, right: 20),
+            errorStyle: const TextStyle(
+              fontSize: 12,
+            ),
+            focusColor: Colors.black,
+            border: InputBorder.none,
+            counterText: "",
           ),
         ),
       ),
